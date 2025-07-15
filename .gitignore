@@ -18,3 +18,7 @@ data/
 # Ignore the pytest cache directory
 .pytest_cache/
 database/.project
+
+credentials.json
+token.json
+gcreds.json
