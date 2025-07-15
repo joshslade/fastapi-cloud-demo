@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Conda
+.env
+*.env
+*.sqlite
+.ipynb_checkpoints
+
+# Folders
+venv/
+data/
+
+.dbeaver/
+.project
+
+# Ignore the pytest cache directory
+.pytest_cache/
+database/.project
