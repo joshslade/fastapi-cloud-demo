@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
     #   # Pull values straight out of the dispatch payload
-      SHEET_ID: ${{ github.event.client_payload.sheet_id }}
+    #   SHEET_ID: ${{ github.event.client_payload.sheet_id }}
     #   LLM_PROMPT: ${{ github.event.client_payload.prompt }}
     #   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/gcreds.json

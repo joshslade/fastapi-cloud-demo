@@ -31,7 +31,7 @@ def duplicate_data_in_sheet():
     Appends rows from a pandas DataFrame to a Google Sheet.
     Assumes the sheet already has a header row matching df.columns.
     """
-    spreadsheet_id = os.getenv("SHEET_ID")
+    spreadsheet_id = os.getenv("SHEET_ID", SPREADSHEET_ID)
     sheet_name = "Sheet1"
     
     try:
