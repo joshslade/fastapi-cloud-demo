@@ -18,6 +18,8 @@ ENV PYTHONUNBUFFERED=1
 # Copy the FastAPI source code
 COPY . .
 
+ENV PYTHONPATH=/app
+
 # Run with Gunicorn + Uvicorn workers (production best-practice)
 CMD exec gunicorn -k uvicorn.workers.UvicornWorker \
       --bind :8080 --workers 2 app.main:app
