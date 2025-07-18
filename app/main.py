@@ -6,7 +6,7 @@ from http import HTTPStatus
 from fastapi import APIRouter
 from pydantic import BaseModel
 from starlette.responses import Response
-from sheets import duplicate_data_in_sheet
+from app.sheets import duplicate_data_in_sheet
 
 print("✅ App loaded")
 
