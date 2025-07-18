@@ -8,7 +8,10 @@ from pydantic import BaseModel
 from starlette.responses import Response
 from sheets import duplicate_data_in_sheet
 
+print("✅ App loaded")
+
 app = FastAPI(title="FastAPI Demo")
+
 
 @app.get("/ping", tags=["health"])
 async def ping():
