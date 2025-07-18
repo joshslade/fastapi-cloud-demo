@@ -20,5 +20,6 @@ data/
 database/.project
 
 credentials.json
+credentials_sa.json
 token.json
 gcreds.json

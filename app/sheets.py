@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
+from google.auth import default
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
+from google.oauth2 import service_account
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
@@ -9,9 +11,10 @@ from googleapiclient.errors import HttpError
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SPREADSHEET_ID = "1DSePdMY4cepwktfjd7PD7oHIt3w5V6kQ36-vd4QRYLU"
 token_path = Path("gcreds.json")
+creds_path = Path("credentials_sa.json")
 
 
-def get_credentials():
+def get_credentials1():
     credentials = None
     # if os.path.exists("token.json"):
     if os.path.exists(token_path):
@@ -25,13 +28,24 @@ def get_credentials():
 
     return credentials
 
+def get_credentials():
+    if os.environ.get("GOOGLE_CLOUD_RUN", "0") == "1":
+        credentials, _ = default(scopes=SCOPES)
+    else:
+        if not creds_path.exists():
+            raise RuntimeError(f"Service account key file {creds_path} not found.")
+        credentials = service_account.Credentials.from_service_account_file(
+            creds_path, scopes=SCOPES
+        )
 
-def duplicate_data_in_sheet():
+    return credentials    
+
+def duplicate_data_in_sheet(spreadsheet_id=None):
     """
     Appends rows from a pandas DataFrame to a Google Sheet.
     Assumes the sheet already has a header row matching df.columns.
     """
-    spreadsheet_id = os.getenv("SHEET_ID", SPREADSHEET_ID)
+    spreadsheet_id = os.getenv("SHEET_ID", spreadsheet_id)
     sheet_name = "Sheet1"
     
     try:
@@ -70,4 +84,4 @@ def duplicate_data_in_sheet():
         return {"error": f"Google Sheets API error: {e}"}
 
 if __name__ == "__main__":
-    duplicate_data_in_sheet()
+    duplicate_data_in_sheet(SPREADSHEET_ID)
