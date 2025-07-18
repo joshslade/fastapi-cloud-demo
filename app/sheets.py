@@ -29,7 +29,7 @@ def get_credentials1():
     return credentials
 
 def get_credentials():
-    if os.environ.get("GOOGLE_CLOUD_RUN", "0") == "1":
+    if os.environ.get("K_SERVICE"):
         credentials, _ = default(scopes=SCOPES)
     else:
         if not creds_path.exists():
